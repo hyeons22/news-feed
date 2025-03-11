@@ -2,7 +2,6 @@ package com.example.newsfeed.domain.user.entity;
 
 import com.example.newsfeed.common.entity.DateEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -26,6 +25,7 @@ public class User extends DateEntity {
 
     private String info;
 
+    @Column(length = 4)
     private String mbti;
 
     public User(String name, String email, String password, String info, String mbti) {
