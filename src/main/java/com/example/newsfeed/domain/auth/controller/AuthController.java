@@ -5,6 +5,7 @@ import com.example.newsfeed.domain.auth.dto.request.SignupRequestDto;
 import com.example.newsfeed.domain.auth.dto.response.LoginResponseDto;
 import com.example.newsfeed.domain.auth.dto.response.SignupResponseDto;
 import com.example.newsfeed.domain.auth.service.AuthService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +22,13 @@ public class AuthController {
 
     // 회원가입
     @PostMapping("/auth/signup")
-    public ResponseEntity<SignupResponseDto> signup(@RequestBody SignupRequestDto requestDto) {
+    public ResponseEntity<SignupResponseDto> signup(@Valid @RequestBody SignupRequestDto requestDto) {
         return ResponseEntity.ok(authService.signup(requestDto));
     }
 
     // 로그인
     @PostMapping("/auth/login")
-    private ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto requestDto) {
+    private ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginRequestDto requestDto) {
         return ResponseEntity.ok(authService.login(requestDto));
     }
 }

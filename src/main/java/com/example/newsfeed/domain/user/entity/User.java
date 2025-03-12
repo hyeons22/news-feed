@@ -25,7 +25,6 @@ public class User extends DateEntity {
 
     private String info;
 
-    @Column(length = 4)
     private String mbti;
 
     public User(String name, String email, String password, String info, String mbti) {
@@ -34,5 +33,17 @@ public class User extends DateEntity {
         this.password = password;
         this.info = info;
         this.mbti = mbti;
+    }
+
+    public void updateInfo(String info) {
+        this.info = info;
+    }
+
+    public void updateMbti(String mbti) {
+        this.mbti = mbti;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 }
