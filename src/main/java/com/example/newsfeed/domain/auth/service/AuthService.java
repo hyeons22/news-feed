@@ -1,6 +1,7 @@
 package com.example.newsfeed.domain.auth.service;
 
 import com.example.newsfeed.config.JwtUtil;
+import com.example.newsfeed.config.PasswordEncoder;
 import com.example.newsfeed.domain.auth.dto.request.LoginRequestDto;
 import com.example.newsfeed.domain.auth.dto.request.SignupRequestDto;
 import com.example.newsfeed.domain.auth.dto.response.LoginResponseDto;
@@ -17,6 +18,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원가입
     @Transactional
@@ -27,7 +29,10 @@ public class AuthService {
             throw new IllegalStateException("이미 가입된 이메일입니다.");
         }
 
-        User user = new User(requestDto.getName(), requestDto.getEmail(), requestDto.getPassword(), requestDto.getInfo(), requestDto.getMbti());
+        // 비밀번호 인코딩
+        String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
+
+        User user = new User(requestDto.getName(), requestDto.getEmail(), encodedPassword, requestDto.getInfo(), requestDto.getMbti());
         User savedUser = userRepository.save(user);
 
         return new SignupResponseDto(
@@ -45,6 +50,11 @@ public class AuthService {
         User user = userRepository.findByEmail(requestDto.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("유저가 존재하지 않습니다.")
         );
+
+        // 비밀번호 확인
+        if(!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
 
         String bearJwt = jwtUtil.createToken(user.getId(), user.getEmail());
         return new LoginResponseDto(bearJwt);
