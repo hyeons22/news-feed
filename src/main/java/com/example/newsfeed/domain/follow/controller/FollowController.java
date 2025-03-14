@@ -22,7 +22,7 @@ public class FollowController {
     public ResponseEntity<String> followUser(
             @Auth AuthUser authUser,
             @PathVariable Long userId
-    ){
+    ) {
         followService.followUser(authUser, userId);
         return new ResponseEntity<>("팔로우 되었습니다.", HttpStatus.OK);
     }
@@ -33,7 +33,7 @@ public class FollowController {
             @Auth AuthUser authUser,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size
-    ){
+    ) {
         return ResponseEntity.ok(followService.findAllFollows(authUser, page, size));
     }
 
@@ -42,7 +42,7 @@ public class FollowController {
     public ResponseEntity<String> unfollowUser(
             @Auth AuthUser authUser,
             @PathVariable Long userId
-    ){
+    ) {
         followService.unfollowUser(authUser, userId);
         return new ResponseEntity<>("팔로우가 해제되었습니다.", HttpStatus.OK);
     }

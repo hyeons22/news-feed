@@ -74,7 +74,7 @@ public class PostService {
                 .map(PostDateResponseDto::toDto)
                 .toList();
 
-        return new PageImpl<>(dtoList, pageable,postPage.getTotalElements());
+        return new PageImpl<>(dtoList, pageable, postPage.getTotalElements());
     }
 
     // 본인 게시물 수정
@@ -117,7 +117,7 @@ public class PostService {
     }
 
     // 유저 확인
-    private User userCheckValidation(AuthUser authUser){
+    private User userCheckValidation(AuthUser authUser) {
         return userRepository.findById(authUser.getUserId()).orElseThrow(
                 () -> new IllegalArgumentException("유저가 존재하지 않습니다.")
         );

@@ -25,7 +25,7 @@ public class AuthService {
     public SignupResponseDto signup(SignupRequestDto requestDto) {
 
         // 이메일이 존재하면 가입 x
-        if(userRepository.existsByEmail(requestDto.getEmail())) {
+        if (userRepository.existsByEmail(requestDto.getEmail())) {
             throw new IllegalStateException("이미 가입된 이메일입니다.");
         }
 
@@ -52,7 +52,7 @@ public class AuthService {
         );
 
         // 비밀번호 확인
-        if(!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
 

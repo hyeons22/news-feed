@@ -4,11 +4,9 @@ import com.example.newsfeed.common.annotation.Auth;
 import com.example.newsfeed.domain.auth.dto.response.AuthUser;
 import com.example.newsfeed.domain.comment.dto.request.CommentRequestDto;
 import com.example.newsfeed.domain.comment.dto.response.CommentResponseDto;
-import com.example.newsfeed.domain.comment.entity.Comment;
 import com.example.newsfeed.domain.comment.service.CommentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Request;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +24,7 @@ public class CommentController {
             @Auth AuthUser authUser,
             @Valid @RequestBody CommentRequestDto requestDto,
             @PathVariable Long postId
-    ){
+    ) {
         return ResponseEntity.ok(commentService.createComment(authUser, requestDto, postId));
     }
 
@@ -36,7 +34,7 @@ public class CommentController {
             @Auth AuthUser authUser,
             @PathVariable Long commentId,
             @PathVariable Long postId
-    ){
+    ) {
         return ResponseEntity.ok(commentService.findCommentById(authUser, commentId, postId));
     }
 
@@ -47,7 +45,7 @@ public class CommentController {
             @PathVariable Long commentId,
             @PathVariable Long postId,
             @Valid @RequestBody CommentRequestDto requestDto
-    ){
+    ) {
         return ResponseEntity.ok(commentService.updateMyComment(authUser, commentId, postId, requestDto));
     }
 
@@ -57,7 +55,7 @@ public class CommentController {
             @Auth AuthUser authUser,
             @PathVariable Long commentId,
             @PathVariable Long postId
-    ){
+    ) {
         commentService.deleteMyComment(authUser, commentId, postId);
         return new ResponseEntity<>("댓글이 삭제되었습니다.", HttpStatus.OK);
     }

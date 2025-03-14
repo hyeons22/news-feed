@@ -1,6 +1,5 @@
 package com.example.newsfeed.domain.user.dto.response;
 
-import com.example.newsfeed.domain.follow.entity.Follow;
 import com.example.newsfeed.domain.user.entity.User;
 import lombok.Getter;
 

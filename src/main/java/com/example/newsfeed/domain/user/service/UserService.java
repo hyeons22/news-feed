@@ -1,6 +1,5 @@
 package com.example.newsfeed.domain.user.service;
 
-import com.example.newsfeed.common.annotation.Auth;
 import com.example.newsfeed.config.PasswordEncoder;
 import com.example.newsfeed.domain.auth.dto.response.AuthUser;
 import com.example.newsfeed.domain.user.dto.request.UserChangePasswordRequestDto;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor

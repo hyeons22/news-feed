@@ -22,7 +22,6 @@ public class AuthUserArgumentResolver implements HandlerMethodArgumentResolver {
         if (hasAuthAnnotation != isAuthUserType) {
             throw new IllegalStateException("@Auth와 AuthUser 타입은 함께 사용되어야 합니다.");
         }
-
         return hasAuthAnnotation;
     }
 

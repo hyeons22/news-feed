@@ -4,7 +4,6 @@ import com.example.newsfeed.common.entity.DateEntity;
 import com.example.newsfeed.domain.post.entity.Post;
 import com.example.newsfeed.domain.user.entity.User;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

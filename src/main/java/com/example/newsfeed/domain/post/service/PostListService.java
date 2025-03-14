@@ -1,8 +1,6 @@
 package com.example.newsfeed.domain.post.service;
 
 import com.example.newsfeed.domain.auth.dto.response.AuthUser;
-import com.example.newsfeed.domain.follow.entity.Follow;
-import com.example.newsfeed.domain.follow.repository.FollowRepository;
 import com.example.newsfeed.domain.post.dto.response.PostDateResponseDto;
 import com.example.newsfeed.domain.post.entity.Post;
 import com.example.newsfeed.domain.post.repository.PostRepository;
@@ -13,7 +11,6 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -33,7 +30,7 @@ public class PostListService {
 
         int adjustPage = (page > 0) ? page - 1 : 0;
         Pageable pageable = PageRequest.of(adjustPage, size);
-        Page<Post> postPage = postRepository.findAllPostsByFollow(follower.getId(),pageable);
+        Page<Post> postPage = postRepository.findAllPostsByFollow(follower.getId(), pageable);
 
         List<PostDateResponseDto> dtoList = postPage.getContent().stream()
                 .map(PostDateResponseDto::toDto)
