@@ -26,21 +26,21 @@ public class AuthService {
 
         // 이메일이 존재하면 가입 x
         if (userRepository.existsByEmail(requestDto.getEmail())) {
-            throw new IllegalStateException("이미 가입된 이메일입니다.");
+            throw new IllegalArgumentException("이미 가입된 이메일입니다.");
         }
 
         // 비밀번호 인코딩
         String encodedPassword = passwordEncoder.encode(requestDto.getPassword());
 
         User user = new User(requestDto.getName(), requestDto.getEmail(), encodedPassword, requestDto.getInfo(), requestDto.getMbti());
-        User savedUser = userRepository.save(user);
+        userRepository.save(user);
 
         return new SignupResponseDto(
-                savedUser.getId(),
-                savedUser.getName(),
-                savedUser.getEmail(),
-                savedUser.getInfo(),
-                savedUser.getMbti()
+                user.getId(),
+                user.getName(),
+                user.getEmail(),
+                user.getInfo(),
+                user.getMbti()
         );
     }
 
@@ -53,7 +53,7 @@ public class AuthService {
 
         // 비밀번호 확인
         if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
-            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
         String bearJwt = jwtUtil.createToken(user.getId(), user.getEmail());
